@@ -1,0 +1,6 @@
+version: '2'
+services:
+  cas:
+    build: .
+    ports:
+     - "8443:8443"
