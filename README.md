@@ -1,12 +1,12 @@
 CAS Docker Overlay
 ==================
-# Docker Compose setup that using a multi-stage build:
+# Docker Compose setup using a multi-stage build:
 * First stage builds a Docker image that:
   * clones https://github.com/apereo/cas-overlay-template
-  * copies the src tree into it
+  * copies the src (local overlay) tree into it
   * builds cas.war
 * Second stage runs CAS in a Docker container
-  * copy the directory etc/cas into the container at /etc/cas
+  * copies the directory etc/cas into the container at /etc/cas
   * generates a self-signed keystore for CAS to use at startup
   * copies the cas.war file from the first stage
   * exposes port 8443
@@ -26,7 +26,7 @@ To use
 
 Notes
 =====
-If you want to grab a copy of the cas.war file that is running use the 'docker cp' command, for example:
+If you want to grab a copy of the cas.war file that is running in the container use the 'docker cp' command, for example:
 ```
 wishbringer:~ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                    NAMES
