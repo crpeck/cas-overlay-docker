@@ -2,10 +2,10 @@ FROM openjdk:8-jre-alpine as buildwar
 MAINTAINER Chris Peck <crpeck@wm.edu>
 RUN cd /tmp \
   && apk --no-cache add maven git \
-  && git clone -b master --single-branch https://github.com/apereo/cas-overlay-template.git cas-overlay \
+  && git clone -b 5.3 --single-branch https://github.com/apereo/cas-overlay-template.git cas-overlay \
   && mkdir -p /tmp/cas-overlay/src/main/webapp
-COPY src/main/webapp/ /tmp/cas-overlay/src/main/webapp/
 WORKDIR /tmp/cas-overlay
+COPY src/ /tmp/cas-overlay/src
 RUN  mvn clean package
 
 FROM openjdk:8-jre-alpine

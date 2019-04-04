@@ -1,5 +1,8 @@
 CAS Docker Overlay
 ==================
+NOTE - this will onlyh build CAS version 5.3 for now. It's based on the Maven build process
+       NOT the gradel build.
+
 # Docker Compose setup using a multi-stage build:
 * First stage builds a Docker image that:
   * clones https://github.com/apereo/cas-overlay-template
