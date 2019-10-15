@@ -1,7 +1,6 @@
 CAS Docker Overlay
 ==================
-NOTE - this will onlyh build CAS version 5.3 for now. It's based on the Maven build process
-       NOT the gradel build.
+Uses gradle to build CAS 6.x 
 
 # Docker Compose setup using a multi-stage build:
 * First stage builds a Docker image that:
