@@ -1,0 +1,12 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : ".*",
+  "name" : "Everything",
+  "id" : 1,
+  "description" : "Everything is accepted by this definition.",
+  "evaluationOrder" : 1,
+  "proxyPolicy" : {
+    "@class" : "org.apereo.cas.services.RegexMatchingRegisteredServiceProxyPolicy",
+    "pattern": "^https?://.*"
+  }
+}
