@@ -47,6 +47,26 @@ REPOSITORY             TAG                 IMAGE ID            CREATED          
 casoverlaydocker_cas   latest              954457811c53        18 seconds ago      173MB
 ```
 
+Proxy authentication
+====================
+
+In order to get the proxy authentication working, you need to make sure that JAVA has imported your self signed
+certificate.
+
+Your self signed certificate needs to be setup for a local host on your machine.
+
+In this case, the hostname will be: `casclient`
+
+In order to import it in the container, follow those steps:
+
+* Before launching Docker commands, make sure the containers are not running or created yet.
+* Copy your own certificates into `./etc/cas/config`
+* Run: `docker-composer up`
+* Enter the newly created container: `docker exec -u root -it --workdir / cas-overlay-docker_cas_1 /bin/bash`
+* Run: `keytool -importcert -keystore /usr/local/openjdk-11/lib/security/cacerts -storepass changeit -file /etc/cas/config/your_certificate_filepath.pem -alias "casclient"`
+* Run: `echo "172.17.0.1 casclient" >> /etc/hosts`
+* Restart the containers: `docker-compose stop && docker-compose start`
+
 References
 ==========
 [Documentation](https://apereo.github.io/cas/5.1.x/index.html)  
