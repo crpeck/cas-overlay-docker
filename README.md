@@ -50,22 +50,40 @@ casoverlaydocker_cas   latest              954457811c53        18 seconds ago   
 Proxy authentication
 ====================
 
-In order to get the proxy authentication working, you need to make sure that JAVA has imported your self signed
-certificate.
+In order to get the proxy authentication working, you need to make sure that the container has imported your SSL
+certificate (self signed or not).
 
-Your self signed certificate needs to be setup for a local host on your machine.
+Your certificate needs to be setup for a local host on your machine.
 
-In this case, the hostname will be: `casclient`
+## Step 1
 
-In order to import it in the container, follow those steps:
+Create a `docker-compose.override.yml` file:
 
-* Before launching Docker commands, make sure the containers are not running or created yet.
-* Copy your own certificates into `./etc/cas/config`
-* Run: `docker-composer up`
-* Enter the newly created container: `docker exec -u root -it --workdir / cas-overlay-docker_cas_1 /bin/bash`
-* Run: `keytool -importcert -keystore /usr/local/openjdk-11/lib/security/cacerts -storepass changeit -file /etc/cas/config/your_certificate_filepath.pem -alias "casclient"`
-* Run: `echo "172.17.0.1 casclient" >> /etc/hosts`
-* Restart the containers: `docker-compose stop && docker-compose start`
+```yaml
+version: '2'
+services:
+  cas:
+    extra_hosts:
+      - "casclient:172.22.0.1"
+```
+
+Change `casclient` and `172.22.0.1` based on your host settings.
+
+On my side `casclient` is the hostname of CAS client application and `172.22.0.1` is the IP of the host running Docker.
+
+## Step 2
+
+Copy the SSL certificate from your application into `etc/cas/config/certificate.pem`.
+
+The format of the certificate must be in `PEM`.
+
+## Step 3
+
+`docker-compose up`
+
+or 
+
+`docker-compose up --force-recreate --build`
 
 References
 ==========
